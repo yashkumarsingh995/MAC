@@ -1,0 +1,68 @@
+{% extends 'shop/core.html' %}
+{% load static %}
+
+{% block title %} {{product.product_name}} {% endblock  %}
+
+
+{% block body %} 
+
+<div class="container my-4 " style="height:80vh">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="row">
+        <img src="/media/{{product.image}}" alt=""width="255px" height="325px"/>
+      </div>
+      <div class="col-md-8 ">
+        <h2>{{product.product_name}}</h2>
+        <h3><b>Rs.{{product.price}}</b></h3>
+        <h4>{{product.desc}}</h4>
+      </div>
+      
+    </div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+{% endblock body %}
+
+
+{% block js %}
+<script>
+console.log('working');
+if(localStorage.getItem('cart') == null){
+var cart = {};
+}
+else
+{
+cart = JSON.parse(localStorage.getItem('cart'));
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+}
+$('.cart').click(function(){
+console.log('clicked');
+var idstr = this.id.toString();
+console.log(idstr);
+if (cart[idstr] !=undefined){
+cart[idstr] = cart[idstr] + 1;
+}
+else
+{
+cart[idstr] = 1;
+}
+//console.log(cart);
+localStorage.setItem('cart', JSON.stringify(cart));
+document.getElementById('cart').innerHTML = Object.keys(cart).length;
+});
+
+
+var exampleEl = document.getElementById('carttool')
+var tooltip = new bootstrap.Tooltip(exampleEl,'show')
+
+
+
+</script>
+{% endblock %}
